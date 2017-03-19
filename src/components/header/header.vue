@@ -13,7 +13,7 @@
            {{seller.description}}/{{seller.deliveryTime}}分钟送达
          </div>
          <div v-if="seller.supports" class="support">
-           <span clas="icon"></span>
+           <span class="icon" :class="classMap[seller.supports[0].type]"></span>
            <span class="text">{{seller.supports[0].description}}</span>
          </div>
        </div>
@@ -29,10 +29,8 @@ export default {
       type:Object
     }
   },
-  data () {
-    return {
-      
-    }
+  created() {
+    this.classMap = ['decrease','discount','special','invoice','gurantee'];
   }
 }
 </script>
@@ -42,11 +40,14 @@ export default {
       color:white;
       background-color: black;
       .content-wrapper {
-        padding:2.4rem 1.2rem 1.8rem 2.4rem; 
+        padding:24px 12px 18px 24px; 
         font-size: 0;
         .avatar {
           display: inline-block;
           vertical-align: top;
+          img {
+            border-radius: 2px;
+          }
         }
         .content {
           display: inline-block;
@@ -67,6 +68,40 @@ export default {
               font-size: 16px;
               line-height: 18px;
               font-weight: bold;
+            }
+          }
+          .description {
+            margin-bottom: 10px;
+            line-height: 12px;
+            font-size: 12px;
+          }
+          .support {
+            .icon {
+              display: inline-block;
+              width: 12px;
+              height: 12px;
+              background-size: 12px 12px;
+              background-repeat: no-repeat;
+              vertical-align: bottom;
+              &.decrease {
+                background-image: url("../../assets/img/decrease_2@2x.png")
+              }
+              &.discount {
+                background-image: url("../../assets/img/discount_2@2x.png")
+              }
+              &.gurantee {
+                background-image: url("../../assets/img/guarantee_2@3x.png")
+              }
+              &.invoice {
+                background-image: url("../../assets/img/invoice_2@2x.png")
+              }
+              &.special {
+                background-image: url("../../assets/img/special_2@2x.png")
+              }
+            }
+            .text {
+              font-size: 12px;
+              line-height: 12px;
             }
           }
         }
