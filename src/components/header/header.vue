@@ -17,6 +17,9 @@
            <span class="text">{{seller.supports[0].description}}</span>
          </div>
        </div>
+       <div v-if="seller.supports" class="support-count">
+         <span class="count">{{seller.supports.length}}</span>
+       </div>
      </div>
      <div class="bullentin-wrapper"></div>
   </div>
@@ -101,7 +104,7 @@ export default {
             }
             .text {
               font-size: 12px;
-              line-height: 12px;
+              line-height: 10px;
             }
           }
         }
