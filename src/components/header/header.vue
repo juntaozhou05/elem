@@ -18,11 +18,14 @@
          </div>
        </div>
        <div v-if="seller.supports" class="support-count">
-         <span class="count">{{seller.supports.length}}</span>
-         <i class="icon-keyboard_arrow_right"></i>
+         <span class="count">{{seller.supports.length}}个</span>
+         <i class="ticon-keyboard_arrow_righ"></i>
        </div>
      </div>
-     <div class="bullentin-wrapper"></div>
+     <div class="bullentin-wrapper">
+       <span class="bullentin-title"></span><span class="bullentin-text">{{seller.bulletin}}</span>
+       <i class="ticon-keyboard_arrow_righ"></i>
+     </div>
   </div>
   
 </template>
@@ -129,5 +132,27 @@ export default {
           }
         }
       } 
+      .bullentin-wrapper {
+        height: 28px;
+        line-height: 28px;
+        padding:0 22px 0 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        background: rgba(7,17,27,0.2);
+        .bullentin-title {
+          display: inline-block;
+          width: 22px;
+          height: 12px;
+          background-image: url('../../assets/img/bulletin@2x.png');
+          background-size: 22px 12px;
+          background-repeat: no-repeat;
+          vertical-align: text-bottom;
+        }
+        .bullentin-text {
+          font-size: 10px;
+          margin:0 4px;
+        }
+      }
     }
 </style>
