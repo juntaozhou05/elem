@@ -19,10 +19,12 @@
        </div>
        <div v-if="seller.supports" class="support-count">
          <span class="count">{{seller.supports.length}}</span>
+         <i class="icon-keyboard_arrow_right"></i>
        </div>
      </div>
      <div class="bullentin-wrapper"></div>
   </div>
+  
 </template>
 
 <script>
@@ -41,8 +43,9 @@ export default {
 <style lang="less">
     .top {
       color:white;
-      background-color: black;
+      background-color: gray;
       .content-wrapper {
+        position: relative;
         padding:24px 12px 18px 24px; 
         font-size: 0;
         .avatar {
@@ -106,6 +109,23 @@ export default {
               font-size: 12px;
               line-height: 10px;
             }
+          }
+        }
+        .support-count {
+          position: absolute;
+          right: 12px;
+          bottom:14px;
+          padding:0 8px;
+          height: 24px;
+          line-height: 24px;
+          border-radius: 14px;
+          background-color: rgba(0,0,0,0.2);
+          text-align: center;
+          .count {
+            font-size: 10px;
+          }
+          .icon-keyboard_arrow_right {
+            font-size: 10px;
           }
         }
       } 
