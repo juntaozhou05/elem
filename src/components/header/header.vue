@@ -17,18 +17,19 @@
            <span class="text">{{seller.supports[0].description}}</span>
          </div>
        </div>
-       <div v-if="seller.supports" class="support-count">
+       <div v-if="seller.supports" class="support-count" @click="showDetail">
          <span class="count">{{seller.supports.length}}个</span>
          <i class="ticon-keyboard_arrow_righ"></i>
        </div>
      </div>
-     <div class="bullentin-wrapper">
+     <div class="bullentin-wrapper" @click="showDetail">
        <span class="bullentin-title"></span><span class="bullentin-text">{{seller.bulletin}}</span>
        <i class="ticon-keyboard_arrow_righ"></i>
      </div>
      <div class="background">
        <img :src="seller.avatar" width="100%" height="100%">
      </div>
+     <div v-show="detailShow" class="detail"></div>
   </div>
   
 </template>
@@ -38,6 +39,15 @@ export default {
   props: {
     seller: {
       type:Object
+    }
+  },
+  data() {
+    return {
+      detailShow:false    }
+  },
+  methods: {
+    showDetail: function() {
+      this.detailShow = true;
     }
   },
   created() {
@@ -50,6 +60,7 @@ export default {
     .top {
       color:white;
       position: relative;
+      overflow: hidden;
       background: rgba(7,17,27,0.5);
       .content-wrapper {
         position: relative;
@@ -152,6 +163,7 @@ export default {
           background-size: 22px 12px;
           background-repeat: no-repeat;
           vertical-align: text-bottom;
+          margin-top: 8px;
         }
         .bullentin-text {
           font-size: 10px;
@@ -166,6 +178,16 @@ export default {
         height: 100%;
         z-index: -1;
         filter:blur(10px);
+      }
+      .detail {
+        position: fixed;
+        z-index: 100;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background: rgba(7,17,27,0.8);
       }
     }
 </style>
