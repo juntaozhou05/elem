@@ -45,6 +45,17 @@ body {
 a {
   text-decoration: none;
 }
+.clearfix {
+  display: inline-block;
+  &:after {
+    display: block;
+    height: 0;
+    line-height: 0;
+    clear:both;
+    visibility: hidden;
+    content:'.'
+  }
+}
   #app {
     .tab {
       display: flex;
