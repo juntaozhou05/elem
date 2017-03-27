@@ -31,6 +31,7 @@ export default {
 		.star-item {
 			display: inline-block;
 			background-repeat: no-repeat;
+			
 		}
 	}
 </style>
