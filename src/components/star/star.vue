@@ -25,12 +25,19 @@ export default {
 <style lang="less">
 	.star{
 		font-size: 0;
-		&.star-48;
+		&.star-48 {
+			.star-item {
+				width: 20px;
+				height: 20px;
+				margin-right: 22px;
+				background-size: 20px 20px;
+				&.on {
+					background-image: url('../../assets/img/brand@2x.png');
+				}
+			}
+		};
 		&.star-36;
 		&.star-24;
-		.star-item {
-			display: inline-block;
-			background-repeat: no-repeat;
-		}
+		
 	}
 </style>
