@@ -33,7 +33,6 @@ export default {
 				background-size: 20px 20px;
 				&.on {
 					background-image: url('../../assets/img/brand@2x.png');
-					
 				}
 			}
 		};
