@@ -5,6 +5,10 @@
 </template>
 
 <script>
+const LENGTH = 5;
+const CLS_ON = 'on';
+const CLS_HALF = 'half';
+const CLS_OFF = 'off';
 export default {
   props: {
   	size:{
@@ -17,6 +21,22 @@ export default {
   computed: {
   	starType() {
   		return 'star-'+this.size;
+  	},
+  	itemClasses() {
+  		let result = [];
+  		let score = Math.floor(this.score*2)/2;
+  		let hasDecimal = score%1!=0;
+  		let integer = Math.floor(score);
+  		for(let i=0;i<integer;i++) {
+  			result.push(CLS_ON);
+  		}
+  		if(hasDecimal) {
+  			result.push(CLS_HALF);
+  		}
+  		while(result.length<LENGTH) {
+  			result.push(CLS_OFF);
+  		}
+  		return result;
   	}
   }
 }
@@ -31,14 +51,61 @@ export default {
 				height: 20px;
 				margin-right: 22px;
 				background-size: 20px 20px;
+				display: inline-block;
+				&.last-child {
+					margin-right: 0;
+				}
 				&.on {
-					background-image: url('../../assets/img/brand@2x.png');
-					
+					background-image: url('../../assets/img/star24_on@3x.png');
+				}
+				&.half {
+					background-image: url('../../assets/img/star36_half@3x.png');
+				}
+				&.off {
+					background-image: url('../../assets/img/star36_off@3x.png');
 				}
 			}
 		};
-		&.star-36;
-		&.star-24;
+		&.star-36 {
+			.star-item {
+				width: 15px;
+				height: 15px;
+				margin-right: 6px;
+				background-size: 15px 15px;
+				&.last-child {
+					margin-right: 0;
+				}
+				&.on {
+					background-image: url('../../assets/img/star24_on@3x.png');
+				}
+				&.half {
+					background-image: url('../../assets/img/star36_half@3x.png');
+				}
+				&.off {
+					background-image: url('../../assets/img/star36_off@3x.png');
+				}
+			}
+		};
+		&.star-24{
+			.star-item {
+				width: 15px;
+				height: 15px;
+				margin-right: 6px;
+				background-size: 15px 15px;
+				&.last-child {
+					margin-right: 0;
+				}
+				&.on {
+					background-image: url('../../assets/img/star24_on@3x.png');
+				}
+				&.half {
+					background-image: url('../../assets/img/star36_half@3x.png');
+				}
+				&.off {
+					background-image: url('../../assets/img/star36_off@3x.png');
+				}
+			}
+		};
 		
 	}
 </style>
