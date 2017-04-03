@@ -59,8 +59,8 @@ a {
     .tab {
       display: flex;
       width: 100%;
-      height: 4rem;
-      line-height: 4rem;
+      height: 2.5rem;
+      line-height: 2.5rem;
       border-bottom: @border1;
       .tab-item {
         flex:1;
@@ -68,7 +68,7 @@ a {
       }
       & a {
         display: block;
-        font-size: 1.4rem;
+        font-size: 1rem;
         color:rgb(77,85,93);
         &.router-link-active {
           color:rgb(240,20,20);
