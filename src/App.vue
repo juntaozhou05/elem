@@ -38,7 +38,6 @@ export default {
 
 <style lang="less">
 @border1: 0.1rem solid rgba(7,17,27,0.1);
-
 body {
   font-size: 62.5%;
 }
