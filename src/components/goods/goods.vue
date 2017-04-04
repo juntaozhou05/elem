@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper">
+    <div class="menu-wrapper" ref="menuWrapper">
       <ul>
         <li v-for="item in goods" class="menu-item">
           <span class="text">
@@ -9,7 +9,7 @@
         </li>
       </ul>
     </div>
-    <div class="foods-wrapper">
+    <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
         <li v-for="item in goods" class="food-list">
           <h1 class="title">{{item.name}}</h1>
@@ -22,8 +22,7 @@
                 <h2 class="name">{{food.name}}</h2>
                 <p class="desc">{{food.description}}</p>
                 <div class="extra">
-                  <span class="count">月售{{food.sellCount}}</span>
-                  <span>好评率{{food.rating}}%</span>
+                  <span class="count">月售{{food.sellCount}}</span><span>好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
                   <span class="now">￥{{food.price}}</span>
@@ -39,6 +38,7 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll';
 export default {
   props: {
     seller: {
@@ -53,7 +53,16 @@ export default {
   mounted: function() {
     this.$http.get('../static/data.json').then((res) => {
       this.goods = res.data.goods;
+      this.$nextTick(()=>{
+        this._initScroll();
+      })
     });
+  },
+  methods: {
+    _initScroll() {
+      this.menuScroll = new BScroll(this.$refs.menuWrapper, {});
+      this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {});
+    }
   },
   created() {
     this.classMap = ['decrease','discount','special','invoice','gurantee'];
@@ -152,11 +161,11 @@ export default {
             color:rgb(7,17,27);
           }
           .desc {
-            margin-bottom: 8px;
+            margin-bottom: 8px;line-height: 12px;
           }
           .extra {
             line-height: 10px;
-            &.count {
+            .count {
               margin-right: 12px
             }
           }
