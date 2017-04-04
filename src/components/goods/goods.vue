@@ -34,11 +34,13 @@
         </li>
       </ul>
     </div>
+    <shopcar></shopcar>
   </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll';
+import shopcar from '../shopcar/shopcar.vue'
 export default {
   props: {
     seller: {
@@ -99,13 +101,14 @@ export default {
       let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
       let el = foodList[index];
       this.foodsScroll.scrollToElement(el,300);
-      console.log(index);
     }
   },
   created() {
     this.classMap = ['decrease','discount','special','invoice','gurantee'];
   },
-  
+  components: {
+    shopcar
+  }
 }
 </script>
 

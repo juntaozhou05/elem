@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import top from './components/header/header.vue'
+import top from './components/header/header.vue';
 export default {
   name: 'app',
   data () {
