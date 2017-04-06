@@ -84,6 +84,7 @@ export default {
           border-right: 1px solid rgba(255,255,255,0.1);
           font-size: 16px;
           font-weight: 700;
+          
         }
         .desc {
           display: inline-block;
