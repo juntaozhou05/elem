@@ -30,11 +30,10 @@ export default {
     minPrice: {
       type:Number,
       default:0
-    }
-  },
-  data() {
-    return {
-      selectFoods: []
+    },
+    selectFoods: {
+      type:Array,
+      default:[]
     }
   },
   computed: {
