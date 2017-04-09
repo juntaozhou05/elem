@@ -29,7 +29,7 @@
                   <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <cartcontrol @addCart="_drop" :food="food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -37,11 +37,12 @@
         </li>
       </ul>
     </div>
-    <shopcar :select-foods="selectFoods" :delivery-price='seller.deliveryPrice' :min-price='seller.minPrice'></shopcar>
+    <shopcar @add="add" ref='shopcart' :select-foods="selectFoods" :delivery-price='seller.deliveryPrice' :min-price='seller.minPrice'></shopcar>
   </div>
 </template>
 
 <script>
+import Vue from 'vue';
 import BScroll from 'better-scroll';
 import shopcar from '../shopcar/shopcar.vue'
 import cartcontrol from '../cartcontrol/cartcontrol.vue'
@@ -116,6 +117,12 @@ export default {
       let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
       let el = foodList[index];
       this.foodsScroll.scrollToElement(el,300);
+    },
+    _drop(target) {
+      this.$refs.shopcart.drop(target);
+    },
+    add(target) {
+      this._drop(target);
     }
   },
   created() {

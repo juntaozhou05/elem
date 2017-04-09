@@ -1,6 +1,6 @@
 <template>
     <div class="shopcar">
-      <div class="content">
+      <div class="content" @click="toggleList">
         <div class="content-left">
           <div class="logo-wrapper">
             <div class="logo" :class="{'hightlight':totalPrice>0}">
@@ -17,10 +17,37 @@
           </div>
         </div>
       </div>
+      <!-- <div class="ball-container">
+        <transition-group name="drop" tag="div" class="ball" v-for="ball in balls" v-show="ball.show" >
+        	<div class="inner inline-hook" :key="ball"></div>
+        </transition-group>
+      </div> -->
+      <transition name="fold">
+      	<div class="shopcart-list" v-show="listShow">
+	      	<div class="list-header">
+	      		<h1 class="title">购物车</h1>
+	      		<span class="empty">清空</span>
+	      	</div>
+	      	<div class="list-content">
+	      		<ul>
+	      			<li class="food" v-for="food in selectFoods">
+	      				<span class="name">{{food.name}}</span>
+	      				<div class="price">
+	      					<span>￥{{food.price*food.count}}</span>
+	      				</div>
+	      				<div class="cartcontrol-wrapper">
+	      					<cartcontrol></cartcontrol>
+	      				</div>
+	      			</li>
+	      		</ul>
+	      	</div>
+	      </div>
+      </transition>
     </div>
 </template>
 
 <script>
+import cartcontrol from '../cartcontrol/cartcontrol.vue'
 export default {
   props: {
     deliveryPrice: {
@@ -34,6 +61,26 @@ export default {
     selectFoods: {
       type:Array,
       default:[]
+    }
+  },
+  data() {
+    return {
+      balls: [
+        {
+          show:false
+        },
+        {
+          show:false
+        },
+        {
+          show:false
+        },
+        {
+          show:false
+        }
+      ],
+      dropBalls:[],
+      fold:true
     }
   },
   computed: {
@@ -67,7 +114,71 @@ export default {
       }else {
         return 'enough';
       }
+    },
+    listShow() {
+    	if(!this.totalCount) {
+    		this.fold = true;
+    		return false;
+    	}
+    	let show = !this.fold;
+    	return show;
     }
+  },
+  methods: {
+    drop(el) {
+      for(let i=0;i<this.balls.length;i++) {
+      	let ball = this.balls[i];
+      	if(!ball.show) {
+      		ball.show = true;
+      		ball.el = el;
+      		this.dropBalls.push(ball);
+      		return;
+      	}
+      }
+    },
+    toggleList() {
+    	if(!this.totalCount) {
+    		return;
+    	}
+    	this.fold = !this.fold;
+    },
+    transitions: {
+    	drop: {
+    		beforeEnter(el) {
+    			let count = this.balls.length;
+    			while(count--) {
+    				let ball = this.balls[count];
+    				if(ball.show) {
+    					let rect = ball.el.getBoundingClientRect();
+    					let x = rect.left - 32;
+    					let y = -(window.innerHeight - rect.top - 22);
+    					el.style.display = '';
+    					el.style.transform = `translate3d(0,${y}px,0)`;
+    					let inner = el.getElementByClassName('inline-hook')[0];
+    					inner.style.transform = `translate3d(${x}px,0,0)`;
+    				}
+    			}
+    		},
+    		enter(el) {
+    			let rf = le.offsetHight;
+    			this.$nextTick(() =>{
+					el.style.transform = `translate3d(0,0,0)`;
+					let inner = el.getElementByClassName('inline-hook')[0];
+					inner.style.transform = `translate3d(0,0,0)`;
+    			})
+    		},
+    		afterEnter(el) {
+    			let ball = this.dropBalls.shift();
+    			if(ball) {
+    				ball.show = false;
+    				el.style.display = 'none';
+    			}
+    		}
+    	}
+    }
+  },
+  components: {
+  	cartcontrol
   }
 }
 </script>
@@ -178,6 +289,61 @@ export default {
           }
         }
       }
+    }
+    .ball-container {
+      .ball {
+        position: fixed;
+        left:32px;
+        bottom:22px;
+        z-index: 200;
+        &.drop-move {
+        	transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41);
+        }
+        .inner {
+			width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgb(0, 160, 220);
+            transition: all 0.4s linear;
+    	}
+      }
+    }
+    .shopcart-list {
+    	position: absolute;
+    	top:60px;
+    	left: 0;
+    	width: 100%;
+		&.fold-enter-active{
+			transition:all 0.5s;
+			transform:translate3d(0,110%,0);
+		}
+		&.fold-enter,&.fade-leave-active {
+			transform:translate3d(0,0,0);
+		}
+		.list-header {
+			height: 40px;
+			line-height: 40px;
+			padding:0 18px;
+			background: #f3f5f7;
+			border-bottom: 1px solid rgba(7,17,27,0.1);
+			.title {
+				float:left;
+				font-size: 14px;
+				color:rgb(7,17,27);
+			}
+			.empty {
+				float:right;
+				font-size: 12px;
+				color:rgb(0,160,220);
+			}
+		}
+		.list-content {
+			padding:0 18px;
+			max-height: 217px;
+			background: #fff;
+			overflow: hidden;
+
+		}
     }
   }
 </style>

@@ -5,9 +5,9 @@
     </transition>
     
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
-    <transiton>
+    <transition>
       <div class="cart-add" @click="addCart">+</div>
-    </transiton>
+    </transition>
   </div>
 </template>
 
@@ -31,6 +31,7 @@ export default {
       }else {
         this.food.count++;
       }
+      this.$emit('addCart',event.target)
     },
     decreaseCart() {
       if(this.food.count) {
