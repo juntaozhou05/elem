@@ -201,6 +201,7 @@ export default {
       .title {
         padding-left: 14px;
         height: 26px;
+        
         line-height: 26px;
         border-left: 2px solid #d9dde1;
         font-size: 12px;
