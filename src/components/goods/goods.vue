@@ -142,6 +142,7 @@ export default {
     width: 100%;
     top:174px;
     bottom: 46px;
+    
     overflow: hidden;
     .menu-wrapper {
       flex:0 0 80px;
