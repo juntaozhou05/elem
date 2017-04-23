@@ -14,7 +14,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item">
+            <li @click="selectFood(food,$event)" v-for="food in item.foods" class="food-item">
               <div class="icon">
                 <img :src="food.icon" alt="" width="57" height="57">
               </div>
@@ -38,6 +38,7 @@
       </ul>
     </div>
     <shopcar @add="add" ref='shopcart' :select-foods="selectFoods" :delivery-price='seller.deliveryPrice' :min-price='seller.minPrice'></shopcar>
+    <food :food="selectedFood"></food>
   </div>
 </template>
 
@@ -46,6 +47,7 @@ import Vue from 'vue';
 import BScroll from 'better-scroll';
 import shopcar from '../shopcar/shopcar.vue'
 import cartcontrol from '../cartcontrol/cartcontrol.vue'
+import food from '../food/food.vue'
 export default {
   props: {
     seller: {
@@ -56,7 +58,8 @@ export default {
     return {
       goods:[],
       listHeight:[],
-      scrollY:0
+      scrollY:0,
+      selectedFood:{}
     }
   },
   mounted: function() {
@@ -113,6 +116,9 @@ export default {
         this.listHeight.push(height);
       }
     },
+    selectFood(food) {
+      this.selectedFood = food;
+    },
     selectMenu(index,event) {
       let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
       let el = foodList[index];
@@ -130,7 +136,8 @@ export default {
   },
   components: {
     shopcar,
-    cartcontrol
+    cartcontrol,
+    food
   }
 }
 </script>
