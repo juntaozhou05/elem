@@ -1,7 +1,9 @@
 <template>
-    <div v-show="showFlag" class="food">
-      <div>111111</div>
-    </div>
+    <transition name="move">
+      <div v-show="showFlag" class="food">
+        <div>111111</div>
+      </div>
+    </transition>
 </template>
 
 <script>
@@ -13,12 +15,14 @@ export default {
   },
   data () {
     return {
-      showFlag:true
+      showFlag:false
     }
   },
-  mounted: function() {
-    
-  }
+  methods: {
+    show() {
+      this.showFlag = true;
+    }
+  }   
 }
 </script>
 
@@ -31,5 +35,12 @@ export default {
     z-index: 30;
     width: 100%;
     background: #fff;
+    transform: translate3d(0, 0, 0);
+    &.move-enter-active, &.move-leave-active {
+      transition:all 0.2s linear;
+    }
+    &.move-enter, &.move-leave-active {
+      transform:translate3D(100%,0,0);
+    }
   }
 </style>

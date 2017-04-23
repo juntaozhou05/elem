@@ -38,7 +38,8 @@
       </ul>
     </div>
     <shopcar @add="add" ref='shopcart' :select-foods="selectFoods" :delivery-price='seller.deliveryPrice' :min-price='seller.minPrice'></shopcar>
-    <food :food="selectedFood"></food>
+    <food :food="selectedFood" ref="food"></food>
+    
   </div>
 </template>
 
@@ -116,8 +117,9 @@ export default {
         this.listHeight.push(height);
       }
     },
-    selectFood(food) {
+    selectFood(food,event) {
       this.selectedFood = food;
+      this.$refs.food.show();
     },
     selectMenu(index,event) {
       let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
