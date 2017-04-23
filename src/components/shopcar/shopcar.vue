@@ -26,7 +26,7 @@
       	<div class="shopcart-list" v-show="listShow">
 	      	<div class="list-header">
 	      		<h1 class="title">购物车</h1>
-	      		<span class="empty">清空</span>
+	      		<span class="empty" @click="empty">清空</span>
 	      	</div>
 	      	<div class="list-content">
 	      		<ul>
@@ -175,6 +175,11 @@ export default {
     			}
     		}
     	}
+    },
+    empty() {
+      this.selectFoods.forEach((food)=>{
+        food.count = 0;
+      });
     }
   },
   components: {
@@ -310,9 +315,12 @@ export default {
     }
     .shopcart-list {
     	position: absolute;
-    	top:60px;
+    	bottom:50px;
     	left: 0;
     	width: 100%;
+      padding: 20px 0;
+      background: white;
+      z-index:-1;
 		&.fold-enter-active{
 			transition:all 0.5s;
 			transform:translate3d(0,110%,0);
