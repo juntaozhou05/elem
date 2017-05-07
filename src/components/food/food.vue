@@ -1,36 +1,38 @@
 <template>
     <transition name="move">
       <div v-show="showFlag" class="food" ref="food">
-        <div class="image-header">
+        <div>
+          <div class="image-header">
           <img :src="food.image">
           <div class="back" @click="hide">
             <span>&lt;</span>
           </div>
-        </div>
-        <div class="content">
-          <h1 class="title">{{food.name}}</h1>
-          <div class="detail">
-            <span class="sell-count">月售{{food.sellCount}}份</span>
-            <span class="rating">好评率{{food.rating}}</span>
           </div>
-          <div class="price">
-            <span class="now">￥{{food.price}}</span>
-            <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+          <div class="content">
+            <h1 class="title">{{food.name}}</h1>
+            <div class="detail">
+              <span class="sell-count">月售{{food.sellCount}}份</span>
+              <span class="rating">好评率{{food.rating}}</span>
+            </div>
+            <div class="price">
+              <span class="now">￥{{food.price}}</span>
+              <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+            </div>
+            <div class="cartcontrol-wrapper">
+            <cartcontrol :food="food"></cartcontrol>
           </div>
-          <div class="cartcontrol-wrapper">
-          <cartcontrol :food="food"></cartcontrol>
-        </div>
-        <div @click="addFirst" class="buy" v-show="!food.count || food.count === 0">加入购物车</div>
-        </div>
-        <split v-show="food.info"></split>
-        <div class="info" v-show="food.info">
-          <h1 class="title">商品信息</h1>
-          <p class="text">{{food.info}}</p>
-        </div>
-        <split></split>
-        <div class="rating">
-          <h1 class="title">商品评价</h1>
-          <ratingselect></ratingselect>
+          <div @click="addFirst" class="buy" v-show="!food.count || food.count === 0">加入购物车</div>
+          </div>
+          <split v-show="food.info"></split>
+          <div class="info" v-show="food.info">
+            <h1 class="title">商品信息</h1>
+            <p class="text">{{food.info}}</p>
+          </div>
+          <split></split>
+          <div class="rating">
+            <h1 class="title">商品评价</h1>
+            <ratingselect></ratingselect>
+          </div>
         </div>
       </div>
     </transition>
@@ -58,7 +60,7 @@ export default {
       this.showFlag = true;
       this.$nextTick(()=>{
         if(!this.scroll) {
-          this.foodScroll = new BScroll(this.$refs.food, {
+          this.scroll = new BScroll(this.$refs.food, {
             click:true
           })
         }else {
